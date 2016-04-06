@@ -4,15 +4,23 @@ Created on 5 avr. 2016
 @author: Emmanuel
 '''
 
-
-import numpy as np
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import time
 import cv2
 
-cap = cv2.VideoCapture(0)
-if (cap.isOpened()):
-    print "captured" 
-ret, frame = cap.read()
-cv2.imshow('first capture',frame)
-#else
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+camera = PiCamera()
+camera.resolution = (640, 480)
+camera.framerate = 15
+rawCapture = PiRGBArray(camera, size=(640,480))
+
+time.sleep(0.1)
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+	image = frame.array
+	cv2.imshow('Capture',image)
+	key = cv2.waitKey(1) & 0xFF
+
+	rawCapture.truncate(0)
+
+	if key == ord("q"):
+		break
