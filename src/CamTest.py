@@ -32,7 +32,7 @@ else:
         '''camera.resolution = (640, 480)
         camera.framerate = 24
         camera.start_preview()
-        time.sleep(2)
+        
         camera.capture(stream, format='jpeg')
 
     data = np.fromstring(stream.getvalue(), dtype=np.uint8)
@@ -40,8 +40,8 @@ else:
     image = image[:,:,::-1]
     cv.imshow('Capture', image)
 '''
-    
-        for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+        time.sleep(2)
+        for frame in camera.capture_continuous(capture, format="bgr", use_video_port=True):
             image = frame.array
             #tf.faceDetection(image)
             cv2.imshow('Capture',image)
