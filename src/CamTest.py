@@ -26,11 +26,11 @@ else:
 
 
 
-    stream = io.BytesIO()
+    #stream = io.BytesIO()
     with picamera.PiCamera() as camera:
     
         '''camera.resolution = (640, 480)
-        camera.framerate = 24'''
+        camera.framerate = 24
         camera.start_preview()
         time.sleep(2)
         camera.capture(stream, format='jpeg')
@@ -41,12 +41,12 @@ else:
     cv.imshow('Capture', image)
 '''
     
-    for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-        image = frame.array
-        tf.faceDetection(image)
-        cv2.imshow('Capture',image)
-        rawCapture.truncate(0)
-        key = cv2.waitKey(1) & 0xFF
-        if key == ord("q"):
-            break
+        for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+            image = frame.array
+            #tf.faceDetection(image)
+            cv2.imshow('Capture',image)
+            rawCapture.truncate(0)
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord("q"):
+                break
 '''
